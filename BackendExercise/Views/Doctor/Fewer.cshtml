@@ -1,0 +1,21 @@
+﻿
+@{
+	Layout = "~/Views/shared/Layout.cshtml";
+}
+@model BackendExercise.Views.Home.IndexModel
+@{
+}
+
+<p style="color:blue;font:arial sans-seriff; font-size:16px;">@ViewBag.text  </p>
+<form action="@Url.Action("Fewer", "Doctor")" method="post">
+    <table>
+        <tr>
+            <td>Enter temperature: </td>
+            <td><input type="double" name="temperature" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+</form>
+<p style="color:red;font:arial sans-seriff; font-size:22px;">@ViewBag.Answer  </p>

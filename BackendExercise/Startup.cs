@@ -52,7 +52,11 @@ namespace BackendExercise
             {
 
 
-                endpoints.MapControllerRoute(name:"defaut",pattern:"{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name:"default",pattern:"{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "FewerCheck",
+                    pattern: "FewerCheck",
+                    defaults: new { controller = "Doctor", action = "Fewer" });
             });
         }
     }
