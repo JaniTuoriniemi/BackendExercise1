@@ -1,0 +1,21 @@
+﻿
+@{
+	Layout = "~/Views/shared/Layout.cshtml";
+}
+@model BackendExercise.Views.Home.IndexModel
+@{
+}
+
+<p style="color:blue;font:arial sans-seriff; font-size:16px;">@ViewBag.Message  </p>
+<form action="@Url.Action("GuessingGame", "Home")" method="post">
+    <table>
+        <tr>
+            <td>Enter your guess: </td>
+            <td><input type="Int" name="guess" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+</form>
+<p style="color:red;font:arial sans-seriff; font-size:22px;">@ViewBag.Answer  </p>

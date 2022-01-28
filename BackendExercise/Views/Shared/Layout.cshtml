@@ -11,12 +11,13 @@
 	</head>
 	<body>
 		<header>
-			<img src="~/Views/Shared/pagelogo.jpg" alt="Img. pagelogo" style="width:40px;height:20px;">
+			<img src="~/wwwroot/Pictures/pagelogo.jpg" alt="Img. pagelogo" style="width:40px;height:20px;">
 		<p style="color:blue;font:arial sans-seriff; font-size:22px;">@Html.ActionLink("Index",  "Index",  "Home",null,null ) 
 		@Html.ActionLink("About",  "About",  "Home",null,null ) 
 		@Html.ActionLink("Contact",  "Contact",  "Home",null,null ) 
 		@Html.ActionLink("Projects",  "Projects",  "Home",null,null )
-		@Html.ActionLink("Fewer",  "Fewer",  "Doctor",null,null ) </p>
+		@Html.ActionLink("Fewer",  "Fewer",  "Doctor",null,null ) 
+	@Html.ActionLink("GuessingGame",  "GuessingGame",  "Home",null,null )</p>
 		</header>
 		<div>
 		@RenderBody()

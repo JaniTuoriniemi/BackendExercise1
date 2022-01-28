@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Pictures\pagelogo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\Home\pagelogo.jpg" />
     <None Remove="Views\Home\Picture1.jpg" />
   </ItemGroup>
@@ -15,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
-    <Folder Include="wwwroot\js\NewFolder\NewFolder\" />
+    <None Include="wwwroot\Pictures\pagelogo.jpg" />
   </ItemGroup>
 
 </Project>
