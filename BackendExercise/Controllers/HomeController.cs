@@ -37,11 +37,11 @@ namespace BackendExercise.Controllers
         {
             int random;
             Random rand = new Random();
-            random = rand.Next(1, 11);
+            random = rand.Next(1, 101);
             HttpContext.Session.SetInt32("random", Convert.ToInt32(random));
             HttpContext.Session.SetInt32("guesses", 0);
 
-            ViewBag.Message = "The server has generated an number between 1 and 10. Guess which one";
+            ViewBag.Message = "The server has generated an number between 1 and 100. Guess which one";
             
             return View();
         }
@@ -54,13 +54,24 @@ namespace BackendExercise.Controllers
            
             if (guess==random)
             {
-                ViewBag.Message ="You guessed right. It took "+Convert.ToString(number+1)+" attempts.";
+                ViewBag.Message ="You guessed right. It took "+Convert.ToString(number+1)+" attempts.\n The game has been restarted with a new random number.";
+                Random rand = new Random();
+                random = rand.Next(1, 101);
+                HttpContext.Session.SetInt32("random", Convert.ToInt32(random));
+                HttpContext.Session.SetInt32("guesses", 0);
+                
+            }
+            else if (guess>random)
+            {
+                ViewBag.Message = "You guessed a too high number. You have spend " + Convert.ToString(number+1) + " attempts.";
+                HttpContext.Session.SetInt32("guesses", number + 1);
             }
             else
             {
-                ViewBag.Message = "You guessed wrong. You have spend " + Convert.ToString(number+1) + " attempts.";
+                ViewBag.Message = "You guessed a too low number. You have spend " + Convert.ToString(number + 1) + " attempts.";
+                HttpContext.Session.SetInt32("guesses", number + 1);
             }
-            HttpContext.Session.SetInt32("guesses", number+1);
+            
             
             return View();
         }

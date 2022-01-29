@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using System;
 namespace BackendExercise.Controllers
 {
 	public class Doctor : Controller
@@ -12,11 +12,16 @@ namespace BackendExercise.Controllers
         }
 
         [HttpPost]
-        public IActionResult Fewer(double temperature)
+        public IActionResult Fewer(double? temperature)
         {
-            
-            ViewBag.Answer = Models.Methods.FewerControll(temperature);
-            ViewBag.text = "You can check again if you have fewer!";
+            double temperature_value;
+            if (temperature != null)
+            {
+                temperature_value = Convert.ToDouble(temperature);
+                ViewBag.Answer = Models.Methods.FewerControll(temperature_value);
+                ViewBag.text = "You can check again if you have fewer!";
+            }
+
             return View();
         }
 	}
