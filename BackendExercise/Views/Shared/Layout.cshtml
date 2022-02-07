@@ -1,13 +1,13 @@
 ﻿
 
-@{
-}
+
 <!DOCKTYPE HTML>
 <html>
 	<head>
 <meta name="viewport" content="width=device-width" />
 <title>=@ViewBag.Title</title>
-
+ <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	</head>
 	<body>
 		<header>
@@ -18,7 +18,7 @@
 		@Html.ActionLink("Projects",  "Projects",  "Home",null,null )
 		@Html.ActionLink("Fewer",  "Fewer",  "Doctor",null,null ) 
 	@Html.ActionLink("GuessingGame",  "GuessingGame",  "Home",null,null )
-	@Html.ActionLink("People",  "People_main",  "People",null,null )</p>
+	@Html.ActionLink("People_WithPartial",  "People_WithPartial",  "People",null,null )</p>
 		</header>
 		<div>
 		@RenderBody()

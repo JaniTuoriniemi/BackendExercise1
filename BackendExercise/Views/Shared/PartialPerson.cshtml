@@ -1,0 +1,23 @@
+﻿   
+@model BackendExercise.Models.Person
+
+<div >
+<div class="container" style="width:50%" >
+  <div class="row">
+    <div class="col-sm">
+      @Model.Name
+    </div>
+    <div class="col-sm">
+      @Model.City
+    </div>
+    <div class="col-sm">
+      @Model.Phone
+    </div>
+    <div class="col-sm">
+      <form action="@Url.Action("People_WithPartial", "People")" method="get">
+<button name="id" type="submit" value=@Model.ID>Remove</button>
+</form>
+  </div>
+</div>
+</div>
+</div>
