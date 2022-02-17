@@ -1,0 +1,117 @@
+﻿@using System.Web
+@{
+	Layout = "~/Views/shared/Layout.cshtml";
+}
+@model BackendExercise.Models.Viewlist
+ 
+
+    <form id='formId' action=''> Name:
+        <input type='text' 
+               id='search' 
+               name='search'> 
+        </input>
+      
+        <br>
+        <button type='submit' 
+               id='submitButton'>
+            Submit
+        </button>
+    </form>
+
+ <form action= "@Url.Action("People_WithAJAX", "People")" method="Get">
+    <table>
+        <tr>
+            <td>Search: </td>
+            <td><input type="string" name="search" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+</form>
+ @using (Html.BeginForm("People_main", "People", FormMethod.Post))
+
+{ 
+    <table>
+        <tr>
+            <td>Enter Name: </td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.Name) @Html.ValidationMessageFor(m => m.Viewperson.Name)</td>
+        </tr>
+        <tr>
+            <td>Enter City: </td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.City) @Html.ValidationMessageFor(m => m.Viewperson.City)</td>
+        </tr>
+        <tr>
+            <td>Enter Phone: </td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.Phone) @Html.ValidationMessageFor(m => m.Viewperson.Phone)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+
+
+}
+
+<p div id="cp">  </p>
+<script>
+        document.getElementById("cp").innerHTML ="vigosbigos";
+    </script>
+ 
+
+
+<h1 align="center"> List of people</h1>
+<table style="width:50%" align="center">
+  <tr style="text-align:center;">
+    <th>Name</th>
+    <th>City</th>
+    <th>Phone Nr.</th>
+    <th>Remove</th>
+  </tr>
+  </table >
+  
+@foreach (var x in Model.list)
+{
+    Html.RenderPartial("PartialPerson", x);
+
+    
+ }    
+
+  <script>
+      
+    // When DOM is loaded this 
+    // function will get executed
+    $(() => {
+        // function will get executed 
+        // on click of submit button
+        $("#submitButton").click(function(ev) {
+            var form = $("#formId");
+            var url = form.attr('action');
+            var postdata{form}
+            $.ajax({
+                type: "GET",
+                url:"People_WithAJAX/People" ,
+                data: ,
+                success: function(person) {
+
+                    document.getElementById("cp").innerHTML =person;
+                    //person.OtherPersons.forEach(document.getElementById("cp").innerHTML = Html.RenderPartial("PartialPerson"))
+                    // Ajax call completed successfully
+                    alert(person);
+                },
+                error: function(data) {
+                       document.getElementById("cp").innerHTML ="vigosmigos";
+                    // Some error in ajax call
+                    alert("Error Error Error");
+                }
+            });
+        });
+    });
+    </script>
+    
+
+ 
+
+
+
+

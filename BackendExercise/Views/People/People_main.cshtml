@@ -1,7 +1,7 @@
 ﻿@{
 	Layout = "~/Views/shared/Layout.cshtml";
 }
-@model BackendExercise.Models.Person
+@model BackendExercise.Models.Viewlist
 
  
 
@@ -18,19 +18,20 @@
 </form>
 
 @using (Html.BeginForm("People_main", "People", FormMethod.Post))
+
 { 
     <table>
         <tr>
             <td>Enter Name: </td>
-            <td>@Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name)</td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.Name) @Html.ValidationMessageFor(m => m.Viewperson.Name)</td>
         </tr>
         <tr>
             <td>Enter City: </td>
-            <td>@Html.TextBoxFor(m => m.City) @Html.ValidationMessageFor(m => m.City)</td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.City) @Html.ValidationMessageFor(m => m.Viewperson.City)</td>
         </tr>
         <tr>
             <td>Enter Phone: </td>
-            <td>@Html.TextBoxFor(m => m.Phone) @Html.ValidationMessageFor(m => m.Phone)</td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.Phone) @Html.ValidationMessageFor(m => m.Viewperson.Phone)</td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="Submit Form" /></td>
@@ -51,14 +52,15 @@
     <th>Remove</th>
   </tr>
   
-      @foreach (var x in Model.OtherPersons)
+      @foreach (var x in Model.list)
 {<tr style="text-align:left;">
     <td> Name: @x.Name</td> 
     <td>City: @x.City</td>
     <td>Phone: @x.Phone </td>
+    
     <td> <form action="@Url.Action("People_main", "People")" method="get">
 
-<button name="id" type="submit" value=@x.ID>Remove</button>
+<button name="id" type="submit" value=@x.IDnr>Remove</button>
 </form>
 </td>
     </tr>
