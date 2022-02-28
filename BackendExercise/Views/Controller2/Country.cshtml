@@ -1,0 +1,30 @@
+﻿@{
+	Layout = "~/Views/shared/Layout.cshtml";
+}
+@model BackendExercise.Models.Viewlist
+
+ @using (Html.BeginForm("Country", "Controller2", FormMethod.Post))
+
+{ 
+    <table>
+        <tr>
+            <td>Enter Country Name: </td>
+            <td>@Html.TextBoxFor(m => m.Viewcountry.Countryname) @Html.ValidationMessageFor(m => m.Viewcountry.Countryname)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+}
+<h1> List of countries</h1>
+  @foreach (var x in Model.Countrylist)
+{<tr style="text-align:left;">
+    <td> Name: @x.Countryname</td> 
+    <td> <form action="@Url.Action("Country", "Controller2")" method="get">
+
+<button name="IDnr" type="submit" value=@x.CountryID>Remove</button>
+</form> 
+</td>
+    </tr>
+}
+

@@ -26,10 +26,15 @@ namespace BackendExercise.Controllers
         [HttpGet]
         public IActionResult People_main(string search, int? id)
         {
-            if (search == null & id == null)
+            if (search == null & id == null )
             {
+                foreach (City x in _context.Cities.ToList())
+                { Models.Citylist.AddCity(x); }
+                foreach (Country x in _context.Countries.ToList())
+                { Models.Countrylist.AddCountry(x); }
                 foreach (Person x in _context.Persons.ToList())
                 { Personlist.AddPerson(x); }
+                
             }
           
 
@@ -39,12 +44,13 @@ namespace BackendExercise.Controllers
 
                 List<Models.Person> list = Models.Personlist.Persons;
                 List<Models.Person> a = list.FindAll(x => x.Name.Contains(search));
-                List<Models.Person> b = list.FindAll(x => x.City.Contains(search));
+                List<Models.Person> b = list.FindAll(x => Convert.ToString(x.CityName).Contains(search));
                 List<Models.Person> c = list.FindAll(x => Convert.ToString(x.Phone).Contains(search));
                 Viewlist viewlist = new Viewlist();
-                viewlist.list = a.Union(b).Union(c).ToList();
+                viewlist.List = a.Union(b).Union(c).ToList();
+                viewlist.Citylist = Models.Citylist.Cities;
+                viewlist.Countrylist = Models.Countrylist.Countries;
 
-                
 
                 return View(viewlist);
             }
@@ -60,9 +66,10 @@ namespace BackendExercise.Controllers
                 }
                 Viewlist viewlist = new Viewlist();
 
-                viewlist.list = Models.Personlist.Persons; 
-                
+                viewlist.List = Models.Personlist.Persons;
 
+                viewlist.Citylist = Models.Citylist.Cities;
+                viewlist.Countrylist = Models.Countrylist.Countries;
 
 
                 return View(viewlist);
@@ -72,8 +79,9 @@ namespace BackendExercise.Controllers
                 
                 Viewlist viewlist = new Viewlist();
 
-                viewlist.list = Models.Personlist.Persons;
-
+                viewlist.List = Models.Personlist.Persons;
+                viewlist.Citylist = Models.Citylist.Cities;
+                viewlist.Countrylist = Models.Countrylist.Countries;
 
                 return View(viewlist);
             }
@@ -82,30 +90,42 @@ namespace BackendExercise.Controllers
         [HttpPost]
         public IActionResult People_main(Models.Viewlist the_list)
         { Person person = new Person() ;
-            person.Name = the_list.Viewperson.Name;
-            person.City = the_list.Viewperson.City;
-            person.Phone = the_list.Viewperson.Phone;
-            if (ModelState.IsValid)
-            {person= Models.Personlist.AddPerson(person); }
-           
+            
+            
+            City tobeadded = Citylist.Cities.Find(x => x.CityName.Equals(the_list.Viewcity.CityName));
+            if (tobeadded != null)
+            {
+                person.Name = the_list.Viewperson.Name;
+                person.CityID = tobeadded.CityID;
+                person.CityName = tobeadded.CityName;
+                person.Phone = the_list.Viewperson.Phone;
+                person = Models.Personlist.AddPerson(person);
+                var index = Models.Citylist.Cities.FindIndex(x => x.CityName == tobeadded.CityName);
+                Models.Citylist.Cities[index] = tobeadded;
+                
+                using (var transaction = _context.Database.BeginTransaction())
 
+                {
+                    _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] ON");
+                    _context.Persons.Add(person);
+
+                    _context.SaveChanges();
+                    _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] OFF");
+
+                    var uppdated_city = _context.Cities.First(a => a.CityName == tobeadded.CityName);
+                    uppdated_city.Inhabitants = Models.Citylist.Cities.Find(x => x.CityName.Equals(tobeadded.CityName)).Inhabitants;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                ViewBag.text = "No such city in database!";
+            }
             Viewlist viewlist = new Viewlist();
 
-            viewlist.list = Models.Personlist.Persons;
-
-
-           
-            
-
-            using (var transaction = _context.Database.BeginTransaction())
-
-            {
-                _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] ON");
-                _context.Persons.Add(person);
-              
-                _context.SaveChanges();
-                _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] OFF");
-            }
+            viewlist.List = Models.Personlist.Persons;
+            viewlist.Citylist = Models.Citylist.Cities;
+            viewlist.Countrylist = Models.Countrylist.Countries;
             return View(viewlist);
 
         }
@@ -120,12 +140,12 @@ namespace BackendExercise.Controllers
 
                 List<Models.Person> list = Models.Personlist.Persons;
                 List<Models.Person> a = list.FindAll(x => x.Name.Contains(search));
-                List<Models.Person> b = list.FindAll(x => x.City.Contains(search));
+                List<Models.Person> b = list.FindAll(x => Convert.ToString(x.CityName).Contains(search));
                 List<Models.Person> c = list.FindAll(x => Convert.ToString(x.Phone).Contains(search));
                 Viewlist viewlist = new Viewlist();
                
                 
-                viewlist.list = a.Union(b).Union(c).ToList();
+                viewlist.List = a.Union(b).Union(c).ToList();
 
               
 
@@ -136,7 +156,7 @@ namespace BackendExercise.Controllers
                 _id = Convert.ToInt32(id);
                 Models.Personlist.RemovePerson(_id);
                 Viewlist viewlist = new Viewlist();
-                viewlist.list = Models.Personlist.Persons;
+                viewlist.List = Models.Personlist.Persons;
 
                 
                 return View(viewlist);
@@ -145,7 +165,7 @@ namespace BackendExercise.Controllers
             {
                
                 Viewlist viewlist = new Viewlist();
-                viewlist.list = Models.Personlist.Persons;
+                viewlist.List = Models.Personlist.Persons;
 
 
                 return View(viewlist);
@@ -160,7 +180,7 @@ namespace BackendExercise.Controllers
 
             Viewlist viewlist = new Viewlist();
 
-            viewlist.list = Models.Personlist.Persons;
+            viewlist.List = Models.Personlist.Persons;
 
 
             return View(viewlist);
@@ -179,11 +199,11 @@ namespace BackendExercise.Controllers
 
                 List<Models.Person> list = Models.Personlist.Persons;
                 List<Models.Person> a = list.FindAll(x => x.Name.Contains(search));
-                List<Models.Person> b = list.FindAll(x => x.City.Contains(search));
+                List<Models.Person> b = list.FindAll(x => Convert.ToString(x.CityName).Contains(search));
                 List<Models.Person> c = list.FindAll(x => Convert.ToString(x.Phone).Contains(search));
                 Viewlist viewlist = new Viewlist();
                 
-                viewlist.list = a.Union(b).Union(c).ToList();
+                viewlist.List = a.Union(b).Union(c).ToList();
 
                 
                 //string jsonperson = JsonConvert.SerializeObject(person.OtherPersons, Formatting.Indented);
@@ -195,7 +215,7 @@ namespace BackendExercise.Controllers
                 _id = Convert.ToInt32(id);
                 Models.Personlist.RemovePerson(_id);
                 Viewlist viewlist = new Viewlist();
-                viewlist.list = Models.Personlist.Persons;
+                viewlist.List = Models.Personlist.Persons;
 
                 return Json(viewlist);
 
@@ -204,7 +224,7 @@ namespace BackendExercise.Controllers
             else
             {
                 Viewlist viewlist = new Viewlist();
-                viewlist.list = Models.Personlist.Persons;
+                viewlist.List = Models.Personlist.Persons;
                
 
                 return View(viewlist);
@@ -217,7 +237,7 @@ namespace BackendExercise.Controllers
             { Models.Personlist.AddPerson(person); }
 
             Viewlist viewlist = new Viewlist();
-            viewlist.list = Models.Personlist.Persons;
+            viewlist.List = Models.Personlist.Persons;
             
 
 

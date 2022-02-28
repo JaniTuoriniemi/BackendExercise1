@@ -9,7 +9,7 @@
     <table>
         <tr>
             <td>Search: </td>
-            <td><input type="string" name="search" /></td>
+            <td><input type="String" name="search" /></td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="Submit Form" /></td>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>Enter City: </td>
-            <td>@Html.TextBoxFor(m => m.Viewperson.City) @Html.ValidationMessageFor(m => m.Viewperson.City)</td>
+            <td>@Html.TextBoxFor(m => m.Viewcity.CityName) @Html.ValidationMessageFor(m => m.Viewcity.CityName)</td>
         </tr>
         <tr>
             <td>Enter Phone: </td>
@@ -40,9 +40,7 @@
 
 
 }
-
-
-
+<h1 style > @ViewBag.text</h1>
 <h1> List of people</h1>
 <table style="width:50%">
   <tr style="text-align:left;">
@@ -52,20 +50,21 @@
     <th>Remove</th>
   </tr>
   
-      @foreach (var x in Model.list)
+      @foreach (var x in Model.List)
 {<tr style="text-align:left;">
     <td> Name: @x.Name</td> 
-    <td>City: @x.City</td>
+    <td>City: @x.CityName</td>
     <td>Phone: @x.Phone </td>
+    
     
     <td> <form action="@Url.Action("People_main", "People")" method="get">
 
-<button name="id" type="submit" value=@x.IDnr>Remove</button>
+<button name="id" type="submit" value=@x.PersonID>Remove</button>
 </form>
 </td>
     </tr>
 }
-  
+ 
   </table>
  
 

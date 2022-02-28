@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td>Enter City: </td>
-            <td>@Html.TextBoxFor(m => m.Viewperson.City) @Html.ValidationMessageFor(m => m.Viewperson.City)</td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.CityName) @Html.ValidationMessageFor(m => m.Viewperson.CityName)</td>
         </tr>
         <tr>
             <td>Enter Phone: </td>
@@ -70,7 +70,7 @@
   </tr>
   </table >
   
-@foreach (var x in Model.list)
+@foreach (var x in Model.List)
 {
     Html.RenderPartial("PartialPerson", x);
 

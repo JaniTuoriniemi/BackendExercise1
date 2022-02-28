@@ -21,11 +21,11 @@ namespace BackendExercise.Models
         {
 
 
-            if (person.IDnr > IDcount)
-            { IDcount = person.IDnr; }
-            if (person.IDnr==0)
+            if (person.PersonID > IDcount)
+            { IDcount = person.PersonID; }
+            if (person.PersonID==0)
             {    
-                person.IDnr = IDcount;
+                person.PersonID = IDcount;
                 IDcount = IDcount + 1;
             }
             Persons.Add(person);
@@ -36,7 +36,7 @@ namespace BackendExercise.Models
         {
            
 
-            int a = Persons.FindIndex(x => Convert.ToInt32(x.IDnr)==id);
+            int a = Persons.FindIndex(x => Convert.ToInt32(x.PersonID)==id);
 
             if (a > -1)
             { Persons.RemoveAt(a); }
