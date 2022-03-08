@@ -64,9 +64,6 @@ namespace BackendExercise.Controllers
         public IActionResult City(Models.Viewlist the_list)
         {
             Models.City city = new Models.City();
-            
-
-      
             Country tobeadded = Countrylist.Countries.Find(x=>x.Countryname ==the_list.Viewcity.Countryname);
             if (tobeadded != null)
             {
@@ -74,8 +71,6 @@ namespace BackendExercise.Controllers
                 city.Countryname = the_list.Viewcity.Countryname;
                 city.CountryID = tobeadded.CountryID;
                 city = Models.Citylist.AddCity(city);
-         
-
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [City] ON");

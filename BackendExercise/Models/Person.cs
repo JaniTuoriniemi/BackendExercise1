@@ -18,9 +18,9 @@ namespace BackendExercise.Models
         public int CityID { get; set; }
         [Required(ErrorMessage = "Phone is required.")]
         public int Phone { get; set; }
-        //public   List<Models.Person> OtherPersons { get; set; }
-        
-        
+        public List<Language> Languages { get; set; }
+        public void AddLanguage(Language language)
+        { this.Languages.Add(language); }
         
     }
 }

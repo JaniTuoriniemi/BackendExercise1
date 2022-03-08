@@ -33,14 +33,32 @@
             <td>Enter Phone: </td>
             <td>@Html.TextBoxFor(m => m.Viewperson.Phone) @Html.ValidationMessageFor(m => m.Viewperson.Phone)</td>
         </tr>
+
         <tr>
             <td colspan="2"><input type="submit" value="Submit Form" /></td>
         </tr>
-    </table>
+         </table>
+         }
+    @using (Html.BeginForm("People_main", "People", FormMethod.Post))
+    {
+        <table>
+            <tr>
+            <td>Enter Language: </td>
+            <td>@Html.TextBoxFor(m => m.Viewlanguage.Languagename) @Html.ValidationMessageFor(m => m.Viewlanguage.Languagename)</td>
+        </tr>
+        <tr>
+        <td>Enter Person: </td>
+            <td>@Html.TextBoxFor(m => m.Viewperson.Name) @Html.ValidationMessageFor(m => m.Viewperson.Name)</td>
+            </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>}
+    
 
 
-}
-<h1 style > @ViewBag.text</h1>
+<h1  > @ViewBag.text1</h1>
+<h1  > @ViewBag.text2</h1>
 <h1> List of people</h1>
 <table style="width:50%">
   <tr style="text-align:left;">
@@ -48,6 +66,7 @@
     <th>City</th>
     <th>Phone Nr.</th>
     <th>Remove</th>
+     <th>List of languages</th>
   </tr>
   
       @foreach (var x in Model.List)
@@ -61,10 +80,17 @@
 
 <button name="id" type="submit" value=@x.PersonID>Remove</button>
 </form>
-</td>
-    </tr>
-}
  
+</td>
+            @if (@x.Languages != null)
+            {
+                @foreach (var y in @x.Languages)
+                {
+                    <td> Name: @y.Languagename</td>
+                }
+            }         
+        </tr>  
+}
   </table>
  
 

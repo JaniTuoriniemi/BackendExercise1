@@ -3,6 +3,7 @@ using BackendExercise.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendExercise.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    partial class PersonContextModelSnapshot : ModelSnapshot
+    [Migration("20220302095612_migration8")]
+    partial class migration8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,7 +148,7 @@ namespace BackendExercise.Migrations
 
                     b.HasIndex("PersonsPersonID");
 
-                    b.ToTable("LanguagePerson", (string)null);
+                    b.ToTable("LanguagePerson");
                 });
 
             modelBuilder.Entity("BackendExercise.Models.City", b =>

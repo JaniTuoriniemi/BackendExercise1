@@ -1,0 +1,32 @@
+﻿@{
+	Layout = "~/Views/shared/Layout.cshtml";
+}
+@model BackendExercise.Models.Viewlist
+
+ @using (Html.BeginForm("Language", "Controller3", FormMethod.Post))
+
+{ 
+    <table>
+        <tr>
+            <td>Enter Language Name: </td>
+            <td>@Html.TextBoxFor(m => m.Viewlanguage.Languagename) @Html.ValidationMessageFor(m => m.Viewlanguage.Languagename)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
+}
+
+<h1> List of Languages</h1>
+  @foreach (var x in Model.Languagelist)
+{<tr style="text-align:left;">
+    <td> Name: @x.Languagename</td> 
+    
+    
+    <td> <form action="@Url.Action("Language", "Controller3")" method="get">
+
+<button name="nr" type="submit" value=@x.LanguageID>Remove</button>
+</form> 
+</td>
+    </tr>
+}

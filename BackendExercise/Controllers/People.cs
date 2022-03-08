@@ -34,12 +34,13 @@ namespace BackendExercise.Controllers
                 { Models.Countrylist.AddCountry(x); }
                 foreach (Person x in _context.Persons.ToList())
                 { Personlist.AddPerson(x); }
-                
+                foreach (Language x in _context.Languages.ToList())
+                { Languagelist.AddLanguage(x); }
             }
           
 
             int _id;
-            if (search != null)
+            if (search != null )
             {
 
                 List<Models.Person> list = Models.Personlist.Persons;
@@ -82,50 +83,106 @@ namespace BackendExercise.Controllers
                 viewlist.List = Models.Personlist.Persons;
                 viewlist.Citylist = Models.Citylist.Cities;
                 viewlist.Countrylist = Models.Countrylist.Countries;
-
+                viewlist.Languagelist = Models.Languagelist.Languages;
                 return View(viewlist);
             }
         }
 
         [HttpPost]
         public IActionResult People_main(Models.Viewlist the_list)
-        { Person person = new Person() ;
+        {
+           Language language = the_list.Viewlanguage;
+            Person person = the_list.Viewperson;
             
-            
-            City tobeadded = Citylist.Cities.Find(x => x.CityName.Equals(the_list.Viewcity.CityName));
-            if (tobeadded != null)
+            if (language != null && person !=null)    
             {
-                person.Name = the_list.Viewperson.Name;
-                person.CityID = tobeadded.CityID;
-                person.CityName = tobeadded.CityName;
-                person.Phone = the_list.Viewperson.Phone;
-                person = Models.Personlist.AddPerson(person);
-                var index = Models.Citylist.Cities.FindIndex(x => x.CityName == tobeadded.CityName);
-                Models.Citylist.Cities[index] = tobeadded;
                 
-                using (var transaction = _context.Database.BeginTransaction())
+                List<Language> person_languages = new List<Language>();
 
+                Language languageadded = Languagelist.Languages.Find(x => x.Languagename.Equals(the_list.Viewlanguage.Languagename));
+               
+               Person _person = Personlist.Persons.Find(x => x.Name.Equals(the_list.Viewperson.Name));
+                if (languageadded != null)
                 {
-                    _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] ON");
-                    _context.Persons.Add(person);
+                    using (var transaction = _context.Database.BeginTransaction())
 
-                    _context.SaveChanges();
-                    _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] OFF");
+                    {
+                        _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] ON");
+                        
+                        var uppdated_language = _context.Languages.First(a => a.Languagename == languageadded.Languagename);
 
-                    var uppdated_city = _context.Cities.First(a => a.CityName == tobeadded.CityName);
-                    uppdated_city.Inhabitants = Models.Citylist.Cities.Find(x => x.CityName.Equals(tobeadded.CityName)).Inhabitants;
-                    _context.SaveChanges();
+                        List<Person> updated_persons = new List<Person>();
+                        List<Person> the_persons = uppdated_language.Persons;
+                        if (the_persons != null)
+                        { updated_persons.AddRange(the_persons); }
+                        if (_person != null && updated_persons != null)
+                        { updated_persons.Add(_person); }
+                        uppdated_language.Persons = updated_persons;
+
+                        _context.SaveChanges();
+                        
+                        languageadded = Models.Languagelist.AddLanguage(languageadded);
+                       
+                        var uppdated_person = _context.Persons.First(a => a.PersonID == person.PersonID);
+                        uppdated_person.Languages.Add(languageadded);
+                        _context.SaveChanges();
+                        _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] OFF");
+                    }
+                }
+                else
+                {
+                    ViewBag.text1 = "No such language or person in database!";
                 }
             }
-            else
+            City city = the_list.Viewcity;
+            if (city != null)
             {
-                ViewBag.text = "No such city in database!";
-            }
-            Viewlist viewlist = new Viewlist();
+                City tobeadded = Citylist.Cities.Find(x => x.CityName.Equals(the_list.Viewcity.CityName));
+                if (tobeadded != null)
+                {
 
+                    person.Name = the_list.Viewperson.Name;
+                    person.CityID = tobeadded.CityID;
+                    person.CityName = tobeadded.CityName;
+                    person.Phone = the_list.Viewperson.Phone;
+                    person = Models.Personlist.AddPerson(person);
+                    var index = Models.Citylist.Cities.FindIndex(x => x.CityName == tobeadded.CityName);
+                    Models.Citylist.Cities[index] = tobeadded;
+
+                    using (var transaction = _context.Database.BeginTransaction())
+
+                    {
+                        _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] ON");
+                        _context.Persons.Add(person);
+
+                        _context.SaveChanges();
+                        _context.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [Person] OFF");
+
+                        var uppdated_city = _context.Cities.First(a => a.CityName == tobeadded.CityName);
+                        uppdated_city.Inhabitants = Models.Citylist.Cities.Find(x => x.CityName.Equals(tobeadded.CityName)).Inhabitants;
+                        _context.SaveChanges();
+                    }
+
+                }
+                else if (tobeadded != null)
+                {
+                    ViewBag.text2 = "No such city in database!";
+                }
+            }
+            foreach (City x in _context.Cities.ToList())
+            { Models.Citylist.AddCity(x); }
+            foreach (Country x in _context.Countries.ToList())
+            { Models.Countrylist.AddCountry(x); }
+            foreach (Person x in _context.Persons.ToList())
+            { Personlist.AddPerson(x); }
+            foreach (Language x in _context.Languages.ToList())
+            { Languagelist.AddLanguage(x); }
+
+            Viewlist viewlist = new Viewlist();
             viewlist.List = Models.Personlist.Persons;
             viewlist.Citylist = Models.Citylist.Cities;
             viewlist.Countrylist = Models.Countrylist.Countries;
+            viewlist.Languagelist = Models.Languagelist.Languages;
             return View(viewlist);
 
         }
