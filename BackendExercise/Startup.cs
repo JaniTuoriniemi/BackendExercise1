@@ -11,8 +11,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BackendExercise.Models;
-
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration; 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BackendExercise.ApplicationUserSpace;
+using Microsoft.AspNetCore.Identity;
 namespace BackendExercise
 {
     public class Startup
@@ -27,12 +40,16 @@ namespace BackendExercise
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PersonContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PersonContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages();
             services.AddMvc();
             services.AddHttpContextAccessor();
             services.AddSession();
-            
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddDefaultUI()
+            .AddDefaultTokenProviders()
+               .AddEntityFrameworkStores<PersonContext>();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
