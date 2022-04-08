@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendExercise.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20220405213944_identity1")]
-    partial class identity1
+    [Migration("20220408133322_migration1")]
+    partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,10 +102,10 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00134216-80f4-4883-bbc9-8b0aaaa4fe00",
+                            Id = "c58650de-d6d2-423b-8384-39c6b51ec7ed",
                             AccessFailedCount = 0,
                             Age = 294,
-                            ConcurrencyStamp = "6c72b409-134f-49d6-a5a5-a2ba0a347669",
+                            ConcurrencyStamp = "94c32221-a3d4-489c-94e5-8b37bae35738",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -113,9 +113,9 @@ namespace BackendExercise.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBuhlAnGs6SCqhIp930gx9oo2qH6nDpdpIlJxl71PxQTqD9j/zR5M0tRxrUqaC1kAQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG2xJjjb8rA8aO+r4u7azeI1ZJxZ5D54HohJEkucYMkwBfqvp7Y8AqnIkdBMc3UaGQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "67c55e2f-ab64-4b94-9607-7e4892156589",
+                            SecurityStamp = "63adf815-244f-4c2b-bd2c-579d1220e1d7",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -261,15 +261,15 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3dfc833e-1cf7-430c-8294-35edc123f862",
-                            ConcurrencyStamp = "12d45245-6f2b-4013-92d1-77aaff44d1a3",
+                            Id = "96049838-63b3-4f77-aae8-b7afebb85db2",
+                            ConcurrencyStamp = "be0fe490-4f49-485e-8e62-d4bf7545d677",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f0407892-be60-47b1-82aa-6c434905a484",
-                            ConcurrencyStamp = "37b5eb90-f814-4989-977e-13ff46998b15",
+                            Id = "34b80315-9e3c-4819-bb1e-b7de19d2cced",
+                            ConcurrencyStamp = "ccbc18e6-0fdc-4685-9d8c-3041ef4c612b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -364,8 +364,8 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "00134216-80f4-4883-bbc9-8b0aaaa4fe00",
-                            RoleId = "3dfc833e-1cf7-430c-8294-35edc123f862"
+                            UserId = "c58650de-d6d2-423b-8384-39c6b51ec7ed",
+                            RoleId = "96049838-63b3-4f77-aae8-b7afebb85db2"
                         });
                 });
 

@@ -24,8 +24,8 @@ namespace MVCEmptyProject.Controllers
         }
         
         public IActionResult RoleView()
-        {return View();
-            //return View(_roleManager.Roles);
+        {
+            return View(_roleManager.Roles);
         }
         public IActionResult Create()
         {
