@@ -100,10 +100,10 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fa87d779-12d4-4ac0-855b-c29945dc745e",
+                            Id = "00134216-80f4-4883-bbc9-8b0aaaa4fe00",
                             AccessFailedCount = 0,
                             Age = 294,
-                            ConcurrencyStamp = "1255d72b-3368-4601-bd0a-b0e0e95b1b13",
+                            ConcurrencyStamp = "6c72b409-134f-49d6-a5a5-a2ba0a347669",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -111,9 +111,9 @@ namespace BackendExercise.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENvZE4ND2PwPIiOjZrjUtAgZ/Q6EF7N/XX81Cm8BTeTAbWU0iG7s+pWYfaDVqFhzjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBuhlAnGs6SCqhIp930gx9oo2qH6nDpdpIlJxl71PxQTqD9j/zR5M0tRxrUqaC1kAQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fb066680-a1f5-47a4-9aa5-55c76fcdbd7b",
+                            SecurityStamp = "67c55e2f-ab64-4b94-9607-7e4892156589",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -138,22 +138,6 @@ namespace BackendExercise.Migrations
                     b.HasIndex("CountryID");
 
                     b.ToTable("City", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CityID = -1,
-                            CityName = "Stockholm",
-                            CountryID = -1,
-                            Countryname = "Sweden"
-                        },
-                        new
-                        {
-                            CityID = -2,
-                            CityName = "Göteborg",
-                            CountryID = -1,
-                            Countryname = "Sweden"
-                        });
                 });
 
             modelBuilder.Entity("BackendExercise.Models.Country", b =>
@@ -167,13 +151,6 @@ namespace BackendExercise.Migrations
                     b.HasKey("CountryID");
 
                     b.ToTable("Country", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CountryID = -1,
-                            Countryname = "Sweden"
-                        });
                 });
 
             modelBuilder.Entity("BackendExercise.Models.Language", b =>
@@ -187,13 +164,6 @@ namespace BackendExercise.Migrations
                     b.HasKey("LanguageID");
 
                     b.ToTable("Language", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            LanguageID = -2,
-                            Languagename = "Swedish"
-                        });
                 });
 
             modelBuilder.Entity("BackendExercise.Models.Person", b =>
@@ -220,16 +190,6 @@ namespace BackendExercise.Migrations
                     b.HasIndex("CityID");
 
                     b.ToTable("Person", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            PersonID = -1,
-                            CityID = -1,
-                            CityName = "Stockholm",
-                            Name = "Fredrik",
-                            Phone = 12345
-                        });
                 });
 
             modelBuilder.Entity("BackendExercise.Models.PersonLanguage", b =>
@@ -253,14 +213,6 @@ namespace BackendExercise.Migrations
                     b.HasIndex("PersonID");
 
                     b.ToTable("PersonLanguage", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            ID = -1,
-                            LanguageID = -2,
-                            PersonID = -1
-                        });
                 });
 
             modelBuilder.Entity("LanguagePerson", b =>
@@ -307,15 +259,15 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cb74dad3-0af2-493f-989f-7af3a0214f93",
-                            ConcurrencyStamp = "c609cc11-8e7b-4f4e-9b4a-3375e2990b8f",
+                            Id = "3dfc833e-1cf7-430c-8294-35edc123f862",
+                            ConcurrencyStamp = "12d45245-6f2b-4013-92d1-77aaff44d1a3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c15c7413-4660-4008-86a6-4a989b568433",
-                            ConcurrencyStamp = "dc5d6901-e79c-4af8-94cc-225bda86e8b5",
+                            Id = "f0407892-be60-47b1-82aa-6c434905a484",
+                            ConcurrencyStamp = "37b5eb90-f814-4989-977e-13ff46998b15",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -410,8 +362,8 @@ namespace BackendExercise.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "fa87d779-12d4-4ac0-855b-c29945dc745e",
-                            RoleId = "cb74dad3-0af2-493f-989f-7af3a0214f93"
+                            UserId = "00134216-80f4-4883-bbc9-8b0aaaa4fe00",
+                            RoleId = "3dfc833e-1cf7-430c-8294-35edc123f862"
                         });
                 });
 
